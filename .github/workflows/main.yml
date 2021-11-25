@@ -6,7 +6,6 @@ name: CI to Docker Hub
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    tags: "v*.*.*"
     branches: [ main ]
   pull_request:
     branches: [ main ]
@@ -49,6 +48,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/cicdexample:latest
+          cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local, dest=/tmp/.buildx-cache
 
       - name: Image digest
